@@ -1,0 +1,5 @@
+bottle
+bottle-session
+bottle-websocket
+passlib
+redis
