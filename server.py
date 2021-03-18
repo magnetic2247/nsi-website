@@ -11,7 +11,13 @@ app.install(plugin)
 # Index
 @route('/')
 def index(session):
-    return template("frontend/index.html", usrnm="World")
+    return template("frontend/index.html")
+
+# Static Files
+@route('/<filename:path>')
+def send_static(filename):
+    response.set_header('Access-Control-Allow-Origin', '*')
+    return static_file(filename, root='frontend/')
 
 # Users
 @route('/api/users/:id')
