@@ -1,17 +1,19 @@
 from bottle import app, route, template, run, static_file, redirect, response
 from bottle.ext.websocket import GeventWebSocketServer, websocket
-import bottle_session
+#import bottle_session
 import backend.helper as h
 import os
 
 # Bottle Session
+"""
 app = app()
 plugin = bottle_session.SessionPlugin(cookie_lifetime=600)
 app.install(plugin)
+"""
 
 # Index
 @route('/')
-def index(session):
+def index():
     return template("frontend/index.html")
 
 # Static Files
@@ -22,7 +24,7 @@ def send_static(filename):
 
 # Users
 @route('/api/users/:id')
-def users(session, id):
+def users(id):
     response.set_header('Content-type', 'application/json')
     if id is not None:
         return h.users()
@@ -31,7 +33,7 @@ def users(session, id):
 
 # Chats
 @route('/api/chats/:id')
-def chats(session, id):
+def chats(id):
     response.set_header('Content-type', 'application/json')
     if id is not None:
         return h.chats(id)
@@ -40,7 +42,7 @@ def chats(session, id):
 
 # Messages
 @route('/api/messages/:user_id/:chat_id')
-def messages(session, user_id, chat_id):
+def messages(user_id, chat_id):
     response.set_header('Content-type', 'application/json')
     if user_id is not None and chat_id is not None:
         return h.messages(user_id, chat_id)
