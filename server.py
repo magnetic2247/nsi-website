@@ -2,6 +2,7 @@ from bottle import app, route, template, run, static_file, redirect, response
 from bottle.ext.websocket import GeventWebSocketServer, websocket
 import bottle_session
 import backend.helper as h
+import os
 
 # Bottle Session
 app = app()
@@ -46,5 +47,8 @@ def messages(session, user_id, chat_id):
     else:
         return "Error"
 
-# Server
-run(app=app, host="localhost", port=8080, server=GeventWebSocketServer, debug=True, reloader=True)
+# Start Server
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=os.environ.get("PORT", 5000), server=GeventWebSocketServer)
+else:
+    run(app=app, host="localhost", port=8080, server=GeventWebSocketServer, debug=True, reloader=True)
