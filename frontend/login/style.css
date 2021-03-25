@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+html, body {
+    width: 100%;
+    height: 100;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background: #30336b;
+    background-image: url("/images/stars.svg");
+    font-family: 'Ubuntu', 'Calibri Light', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 5vh;
+    background: #111114;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    display: inline-block;
+    margin: 0;
+}
+
+section {
+    margin-top: 25vh;
+    text-align: center;
+    position: absolute;
+    height: 50vh;
+    width: 50vw;
+    left: 25%;
+    color: white;
+}
+
+section input {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1%;
+}
+
+#error {
+    color: red;
+}
+
