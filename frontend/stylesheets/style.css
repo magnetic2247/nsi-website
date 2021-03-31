@@ -1,3 +1,5 @@
+/* Common to all pages */
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Ubuntu:wght@300&display=swap');
 
 html, body {
@@ -8,6 +10,11 @@ html, body {
   font-family: 'Ubuntu', 'Calibri Light', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  display: inline-block;
+  margin: 0;
 }
 
 header {
@@ -25,11 +32,13 @@ header img {
   cursor: pointer;
 }
 
-
 #img_house {
   left: 1vh;
   top: 1vh;
 }
+
+
+/* Chat Page */
 
 #img_about {
   right: 1vh;
@@ -39,11 +48,6 @@ header img {
 #img_add_member {
   right: 5vh;
   top: 1vh;
-}
-
-h1 {
-  display: inline-block;
-  margin: 0;
 }
 
 #main {
@@ -131,4 +135,70 @@ h1 {
 
 ::placeholder {
   color: #ccc;
+}
+
+
+/* About page */
+
+#author {
+  display: inline-block;
+  width: 30%;
+  height: 95%;
+  margin-left: 2%;
+  color: white;
+  text-align: center;
+}
+
+
+/* Home page */
+
+#bouton {
+  display: block;
+  margin-left: 25%;
+  width: 48%;
+  border: none;
+  padding: 1%;
+  color: white !important;
+  text-decoration: none;
+  background: #1abc9c;
+  font-size: 1.2em;
+}
+
+#home {
+  color: white;
+  overflow-y: hidden;
+}
+
+#home section, #home footer {
+  text-align: center;
+  padding: 1%;
+}
+
+#home section p {
+  text-align: left;
+}
+
+#home section img {
+  width: 50%;
+}
+
+#home footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4%;
+  background: #222;
+  overflow: inherit;
+}
+
+#home footer p {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  top: 35%;
+  margin: 0;
+}
+
+#home a {
+  color: #0984e3;
 }
