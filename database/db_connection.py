@@ -1,7 +1,7 @@
 import sqlite3
 
 # Connection
-conn = sqlite3.connect("backend/db.sqlite")
+conn = sqlite3.connect("database/db.sqlite")
 conn.row_factory = sqlite3.Row
 
 # Query with error-handling
