@@ -3,35 +3,32 @@
   <head>
     <meta charset="utf-8">
     <script src="script.js"></script>
-    <link rel="stylesheet"  href="style.css"/>
+    <link rel="stylesheet"  href="stylesheets/style.css"/>
     <title>Devenir développeur Web</title>
   </head>
 
-  <body>
+  <body id="home">
     <header> <!-- Header - top of the page -->
       <h1>Devenir développeur Web</h1>
-      <p>Salut ! Te voici sur la page Devenir développeur web. </p>
+      <a href="/about"><img id="img_about" src="images/info-circle-fill.svg" alt="About Page" /></a>
     </header>
 
-    <section> <!-- Section - main content -->
-      <img id="dvlweb" src="images/dvlweb.jpg" alt="Développeur web" />
+    <section> <!-- Section - Main Content -->
+      <!-- Introduction Text -->
       <p>
-        Ici, tu trouveras tous les <a href="#">renseignements que tu as besoin concernant ce métier.</a>
-        Tu peux même échanger avec des personnes exerçant ce métier ou cherchant à l'exercer grâce à notre Forum.
-      <br>
-      <br>
+        Salut ! Te voici sur la page Devenir développeur web. <br />
+        Ici, tu trouveras tous les <a href="https://www.w3schools.com/">renseignements que tu as besoin concernant ce métier.</a>
+        Tu peux échanger avec des personnes exerçant ce métier ou cherchant à l'exercer grâce à notre Forum.
       </p>
-      <a href="#" id="bouton" onmouseover="Changecolor('bouton', 'LightSteelBlue')" onmouseout="Changecolor('bouton', 'Royalblue')">Accéder au Forum</a>
-      <br>
-      <br>
-      <br>
+
+      <img src="images/dvlweb.jpg" alt="Dev Web" />
+
+      <!-- Forum Button -->
+      <a href="/chat" id="bouton" onmouseover="Changecolor('bouton', '#16a085')" onmouseout="Changecolor('bouton', '#1abc9c')">Accéder au Forum</a>
     </section>
 
     <footer> <!-- Footer - Bottom of the page -->
-      <p>
-        <a href="mailto:wedonthaveandaddress@scam.com">Contacte-nous</a> Satine / Adrien / Jeremy - Projet Web NSI 2021
-      </p>
-      <p> - Devenir développeur Web-</p>
+      <p><a href="mailto:wedonthaveandaddress@scam.com">Contacte-nous</a> Satine / Adrien / Jeremy - Projet Web NSI 2021</p>
     </footer>
   </body>
 </html>
