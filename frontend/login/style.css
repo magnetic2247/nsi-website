@@ -46,3 +46,12 @@ section input {
     color: red;
 }
 
+.account-p {
+    margin: 0;
+    text-align: left;
+}
+
+.account-p a{
+    color: white;
+}
+

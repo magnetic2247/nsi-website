@@ -2,21 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script src="chat/bbcode.min.js"></script>
-    <script src="chat/logic.js"></script>
+    <script src="/chat/messages.js"></script>
+    <script src="/chat/page.js"></script>
+    <script src="/chat/api.js"></script>
     <link rel="stylesheet" href="chat/style.css" />
-    <title>WebSockets</title>
+    <title>JASWeb</title>
   </head>
 
   <body>
     <header>
       <h1>¯\_(ツ)_/¯</h1>
+      <a href="/"><img id="img_house" src="/images/house-fill.svg" alt="Home" /></a>
+      <img id="img_add_member" src="/images/person-plus-fill.svg" onclick="add_members()" alt="Add members to current chat" />
+      <a href="/about"><img id="img_about" src="/images/info-circle-fill.svg" alt="About Page" /></a>
     </header>
 
-    <section id="msgs"></section>
+    <section id="menu">
+      <h1>Messages <img onclick="new_chat()" src="/images/plus.svg" alt="New Chat" /></h1>
+    </section>
+    
+    <section id="main"></section>
 
     <section id="send">
-      <input type="text" id="msg-input" name="msg" />
+      <input type="text" id="msg-input" name="msg" placeholder="Type something :)" />
       <button onclick="send();" id="send-btn">Send</button>
     </section>
   </body>
