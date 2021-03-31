@@ -1,15 +1,15 @@
 from passlib.hash import bcrypt
-import backend.db_connection as db
+import database.db_connection as db
 import json
 
 # Users in database
-def users(usrname=None):
+def users(username=None):
     # Looking for specific user
-    if usrname is not None:
-        res = db.query("SELECT * FROM users WHERE username=?", (usrname,))
+    if username is not None:
+        res = db.query("SELECT id,username FROM users WHERE username=?", (username,))
     # Looking for all users
     else:
-        res = db.query("SELECT * FROM users")
+        res = db.query("SELECT id,username FROM users")
 
     # Convert Results to JSON
     json_result = {}
@@ -19,10 +19,23 @@ def users(usrname=None):
     # Return JSON
     return json.dumps(json_result)
 
-# Chats per member
-def chats(id):
+# Users in certain chat
+def chat_users(id):
     # Query
-    res = db.query("SELECT chats.name, chat_members.chat_id FROM chat_members INNER JOIN chats ON chat_members.chat_id=chats.id WHERE chat_members.member_id=?", (id,))
+    res = db.query("SELECT member_id FROM `chat_members` WHERE chat_id=?", (id,))
+
+    # Convert Results to JSON
+    json_result = {}
+    for idx,row in enumerate(res):
+        json_result[idx] = dict(row) 
+
+    # Return JSON
+    return json.dumps(json_result)
+
+# Chats per user
+def chats(username):
+    # Query
+    res = db.query("SELECT chats.name, chat_members.chat_id FROM chat_members INNER JOIN chats ON chat_members.chat_id=chats.id WHERE chat_members.member_id=(SELECT id FROM `users` WHERE username=?)", (username,))
 
     # Convert Results to JSON
     json_result = {}
@@ -49,17 +62,65 @@ def messages(username, password, chat_id, last_msg=False):
     
     # Query
     if not last_msg:
-        res = db.query("SELECT content FROM messages WHERE chat_id=? AND id IN (SELECT id FROM messages ORDER BY id DESC LIMIT 100) ORDER BY id", (chat_id,))
+        res = db.query("SELECT messages.chat_id,users.username,messages.content FROM `messages` INNER JOIN `users` ON users.id=messages.sender_id WHERE messages.chat_id=? AND messages.id IN (SELECT id FROM `messages` ORDER BY id DESC LIMIT 100) ORDER BY messages.id", (chat_id,))
     else:
-        res = db.query("SELECT content FROM messages WHERE chat_id=? ORDER BY id DESC LIMIT 1", (chat_id,))
+        res = db.query("SELECT * FROM messages WHERE chat_id=? ORDER BY id DESC LIMIT 1", (chat_id,))
 
     # Convert Results to JSON
     json_result = {}
     for idx,row in enumerate(res):
-        json_result[idx] = dict(row)
+        json_result["msg_"+str(idx)] = dict(row)
 
     # Return JSON
     return json.dumps(json_result)
+
+# Add user to chat
+def add_user_chat(username, password, chatid, user_to_add):
+    # Attempt login
+    if not login(username, password)[0]:
+        return "login_failed"
+
+    # Add user
+    db.query("INSERT INTO `chat_members` (chat_id, member_id) VALUES (?, (SELECT id FROM `users` WHERE username=?))", (int(chatid), user_to_add))
+    return "ok"
+
+# New Message
+def new_message(username, password, message, chat_id):
+    # Attempt login and get user info
+    attempt = login(username, password)
+    if not attempt[0]:
+        return "login_failed"
+    
+    # Get User id from user info
+    user_id = json.loads(attempt[1])["id"]
+
+    # Check if user in chat
+    res = db.query("SELECT * FROM chat_members WHERE member_id=? AND chat_id=?", (user_id, chat_id))
+    if res.fetchone() is None:
+        return "{}"
+
+    # Insert new message
+    db.query("INSERT INTO `messages` (sender_id, chat_id, content) VALUES (?,?,?)", (user_id, chat_id, message))
+
+    # Send back message to user
+    return json.dumps({"chat_id":chat_id,"username":username,"content":message})
+
+# New chat
+def new_chat(username, password, name):
+    # Attempt login
+    if not login(username, password)[0]:
+        return "login_failed"
+
+    # Insert new chat into database
+    db.query("INSERT INTO `chats` (name) VALUES (?)", (name,))
+
+    # Get new chat id
+    chatid = list(dict(db.query("SELECT id FROM `chats` WHERE name=? ORDER BY id DESC", (name,)).fetchone()).values())[0]
+
+    # Add user to new chat
+    add_user_chat(username, password, chatid, username)
+
+    return "ok"
 
 # User login
 def login(username, password):
