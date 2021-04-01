@@ -2,7 +2,7 @@ import bottle_session, bottle
 from bottle import route, template, run, request, response, static_file, get, post, redirect
 from bottle.ext.websocket import GeventWebSocketServer, websocket
 import helper as h
-import json
+import json, os
 
 # Bottle App with Session plugin
 app = bottle.app()
