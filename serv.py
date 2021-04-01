@@ -180,6 +180,6 @@ def wsocket(ws, session):
 
 # Start server
 if os.environ.get('APP_LOCATION') == 'heroku':
-    run(host="0.0.0.0", port=os.environ.get("PORT", 5000), server=GeventWebSocketServer)
+    run(app=app, host="0.0.0.0", port=os.environ.get("PORT", 5000), server=GeventWebSocketServer)
 else:
     run(app=app, server=GeventWebSocketServer, host='0.0.0.0', port=8080)
