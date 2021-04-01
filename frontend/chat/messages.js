@@ -1,6 +1,6 @@
 // Vars
 var socket;
-var socket_url = "wss:///socket";
+var socket_url = "wss://devenir.herokuapp.com/socket";
 var first_load = true;
 
 // Onload - Main Function
