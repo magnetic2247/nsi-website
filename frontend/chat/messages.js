@@ -1,6 +1,6 @@
 // Vars
 var socket;
-var socket_url = "ws://localhost:8080/socket";
+var socket_url = "ws:///socket";
 var first_load = true;
 
 // Onload - Main Function
